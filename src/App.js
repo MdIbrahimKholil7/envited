@@ -7,7 +7,7 @@ export const UseContext = React.createContext()
 const App = () => {
 
     const [eventDetails, setEventDetails] = useState({})
-    console.log(eventDetails)
+
     const state={
         setEventDetails,
         eventDetails

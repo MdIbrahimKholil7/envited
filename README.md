@@ -1,5 +1,5 @@
 ## Envited
-- Users can book your event
+- Users can book their event
 - Users can choose a date and time slot
 - Users can also choose an image for the event
 - On the event page if the user wants then the user can also update all the details 

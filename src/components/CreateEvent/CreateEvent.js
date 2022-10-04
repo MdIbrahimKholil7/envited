@@ -37,7 +37,7 @@ const CreateEvent = () => {
 
         function tConv24(time24) {
             let ts = time24;
-            console.log(time24)
+           
             let H = +ts?.substr(0, 2);
             let h = (H % 12) || 12;
             h = (h < 10)?("0"+h):h;  // leading 0 at the left for 1 digit hours
@@ -49,7 +49,7 @@ const CreateEvent = () => {
         
         function endTimeConv24(time24) {
             let ts = time24;
-            console.log(time24)
+           
             let H = +ts?.substr(0, 2);
             let h = (H % 12) || 12;
             h = (h < 10)?("0"+h):h;  // leading 0 at the left for 1 digit hours
@@ -61,7 +61,7 @@ const CreateEvent = () => {
           endTimeConv24(endTime)
   
 
-    // console.log(times,endTimes)
+
 
 
 

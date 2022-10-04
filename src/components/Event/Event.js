@@ -15,7 +15,6 @@ const Event = () => {
     const details = React.useContext(UseContext)
     const { eventDetails, setEventDetails } = details || {}
     const { eventName, host,location,image,times,endTimes,startTime,endTime} = eventDetails || {}
-    console.log(eventDetails)
     const [modal, setModal] = useState(null)
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
