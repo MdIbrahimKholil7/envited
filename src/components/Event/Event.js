@@ -43,7 +43,7 @@ const Event = () => {
                     <img src={
                         image?image:eventImg
                     } 
-                    className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1 mt-1 mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
+                    className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1 mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
                     <div
                         className='px-5 w-full'
                     >

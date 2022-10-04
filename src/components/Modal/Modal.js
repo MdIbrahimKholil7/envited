@@ -9,7 +9,7 @@ const Modal = ({ setEventDetails, eventDetails, setModal }) => {
 
     const handleForm = (e) => {
         e.preventDefault()
-        console.log(eventName,host,location)
+        console.log(eventName, host, location)
         setEventDetails({
             ...eventDetails,
             eventName,
@@ -20,13 +20,15 @@ const Modal = ({ setEventDetails, eventDetails, setModal }) => {
 
         setModal(null)
     }
- 
+
     return (
         <div>
-
+         
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
+
                 <div className="modal-box">
+                    <label htmlFor="my-modal-6" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <div className="w-full  flex-shrink-0 bg-base-100">
                         <p className='text-center mt-7 text-2xl font-bold text-[#240D57]'>Update Your Event</p>
                         <form
@@ -73,6 +75,7 @@ const Modal = ({ setEventDetails, eventDetails, setModal }) => {
                                 <div className="form-control mt-6">
                                     <button className="btn bg-[#8456EC] text-white hover:bg-[#8456EC]">Update</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
