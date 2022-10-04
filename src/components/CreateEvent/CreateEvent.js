@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiCalendar, BiRightArrowAlt } from 'react-icons/bi';
 import { format } from 'date-fns'
 import { DateRange } from 'react-date-range';
@@ -12,7 +12,6 @@ const CreateEvent = () => {
     const details = React.useContext(UseContext)
     const {setEventDetails}=details ||{}
     const [open, setOpen] = useState(false)
-    const [value, onChange] = useState(new Date());
     const navigate=useNavigate()
     const [eventName, setEventName] = useState('')
     const [host, setHost] = useState('')
@@ -24,9 +23,14 @@ const CreateEvent = () => {
             key: "selection",
         }
     ])
+    const timeRef=useRef(null)
     // formating date 
     const startDate = format(date[0].startDate, 'PP').split(',')[0].split(' ').reverse()
     const endDate = format(date[0].endDate, 'PP').split(',')[0].split(' ').reverse()
+    useEffect(()=>{
+        console.log(timeRef.current.value)
+    },[])
+
 
     const handleForm = (e) => {
         e.preventDefault()
@@ -81,7 +85,9 @@ const CreateEvent = () => {
                                     </span>
                                 }
                             </div>
-
+                                <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative '>
+                                    <input className='bg-transparent font-bold outline-none border-0' ref={timeRef} type="time"  max="24:00"/>
+                                </div>
                         </div>
                       
                     </div>
@@ -120,6 +126,7 @@ const CreateEvent = () => {
                                                 required type="text" placeholder="Location" className="input input-bordered" />
 
                                         </div>
+                                        
                                         <div className="form-control mt-6">
                                             <button className="btn bg-[#8456EC] text-white hover:bg-[#8456EC]">Next <span>
                                                 <BiRightArrowAlt className='text-[26px]' />
