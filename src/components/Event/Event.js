@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import eventImg from '../../assets/Birthday cake.png'
 import { BiCalendar, } from 'react-icons/bi';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight, FiEdit2 } from 'react-icons/fi';
 import { format } from 'date-fns'
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { UseContext } from '../../App';
+import Modal from '../Modal/Modal';
 
 
 const Event = () => {
     const details = React.useContext(UseContext)
-    const { eventDetails } = details || {}
+    const { eventDetails, setEventDetails } = details || {}
+    const { eventName, host,location,image} = eventDetails || {}
+    const [modal, setModal] = useState(null)
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [date, setDate] = useState([
@@ -37,15 +40,15 @@ const Event = () => {
             <div className="hero min-h-screen w-full md:py-20 y-0 bg-[#fff]">
                 <div className="hero-content w-full px-0 md:px-20 py-0 justify-between items-start flex-col lg:flex-row-reverse">
                     <img src={
-                        eventImg
+                        image?image:eventImg
                     } className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1  mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
                     <div
                         className='px-5 w-full'
                     >
-                        <h1 className="text-[28px] md:text-[48px]    font-bold">{eventDetails?.eventName}</h1>
+                        <h1 className="text-[28px] md:text-[48px]    font-bold">{eventName}</h1>
                         <p className='py-4 font-[600] text-[18px] text-[#828282]'>Hosted by <span
-                        className='text-[#828282] font-bold'
-                        >{eventDetails?.host}</span></p>
+                            className='text-[#828282] font-bold'
+                        >{host}</span></p>
                         <div className='w-full '>
                             <div className='flex justify-between items-center w-full'>
                                 <div
@@ -136,7 +139,7 @@ const Event = () => {
                                                 className='text-[#4F4F4F] font-bold'
                                             >
                                                 {
-                                                    eventDetails?.location
+                                                    location
                                                 }</p>
                                         </div>
                                     </div>
@@ -150,8 +153,35 @@ const Event = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div className='text-center'>
+                            {/*    <button
 
+                                className='flex gap-1 items-center mx-auto mt-10 btn font-bold'>
+                                <FiEdit2
+                                    className='font-bold '
+                                />
+                                Edit
+                            </button> */}
+
+                            <label
+                                onClick={()=>setModal(true)}
+                                htmlFor="my-modal-6"
+                                className='flex gap-1 w-[140px] text-[16px] items-center mx-auto mt-20 btn font-bold'
+                            >
+                                <FiEdit2
+                                    className='font-bold '
+                                />
+                                Edit
+                            </label>
+                        </div>
+                    </div>
+                    {
+                        modal && <Modal
+                            eventDetails={eventDetails}
+                            setEventDetails={setEventDetails}
+                            setModal={setModal}
+                        />
+                    }
                 </div>
             </div>
         </div>
