@@ -1,4 +1,4 @@
-## Envied
+## Envited
 - Users can book your event
 - Users can choose a date and time slot
 - Users can also choose an image for the event
