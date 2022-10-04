@@ -8,6 +8,8 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { UseContext } from '../../App';
+
+
 const Event = () => {
     const details = React.useContext(UseContext)
     const { eventDetails } = details || {}
@@ -29,6 +31,7 @@ const Event = () => {
         setDate([item.selection])
         setUpdate(true)
     }
+
     return (
         <div>
             <div className="hero min-h-screen w-full md:py-20 y-0 bg-[#fff]">
@@ -37,12 +40,12 @@ const Event = () => {
                         eventImg
                     } className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1  mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
                     <div
-                        className='px-5'
+                        className='px-5 w-full'
                     >
                         <h1 className="text-[28px] md:text-[48px]    font-bold">{eventDetails?.eventName}</h1>
                         <p className='py-4 font-bold text-[#828282]'>{eventDetails?.host}</p>
-                        <div>
-                            <div>
+                        <div className='w-full '>
+                            <div className='flex justify-between items-center w-full'>
                                 <div
                                     className='flex items-center gap-4'
                                 >
@@ -108,29 +111,40 @@ const Event = () => {
                                     </div>
 
                                 </div>
-                                <p>
+                                <p className='pr-16'>
                                     <FiChevronRight
-                                    className='text-3xl'
+                                        className='text-3xl text-[#BDBDBD]'
                                     />
-                                    </p>
+                                </p>
                             </div>
-                            <div className='flex gap-4'>
-                                <div>
-                                    <p className='shadow-lg p-2'>
-                                        <HiOutlineLocationMarker
-                                            className='text-[#8456EC] text-[26px]'
-                                        />
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className='text-[#240D57] font-bold' >Street name</p>
+                            <div className='flex gap-4 w-full'>
+                                <div className='flex justify-between items-center w-full'>
+                                    <div className='flex gap-4 '>
+                                        <div>
+                                            <p className='shadow-lg p-2'>
+                                                <HiOutlineLocationMarker
+                                                    className='text-[#8456EC] text-[26px]'
+                                                />
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className='text-[#240D57] font-bold' >Street name</p>
 
-                                    <p
-                                        className='text-[#4F4F4F] font-bold'
-                                    >
-                                        {
-                                            eventDetails?.location
-                                        }</p>
+                                            <p
+                                                className='text-[#4F4F4F] font-bold'
+                                            >
+                                                {
+                                                    eventDetails?.location
+                                                }</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className='pr-16'>
+                                            <FiChevronRight
+                                                className='text-3xl text-[#BDBDBD]'
+                                            />
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
