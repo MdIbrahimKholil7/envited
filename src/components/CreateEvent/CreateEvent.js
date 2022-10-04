@@ -1,18 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { BiCalendar, BiRightArrowAlt } from 'react-icons/bi';
+import { BiCalendar, BiRightArrowAlt, } from 'react-icons/bi';
+import { AiFillCamera } from 'react-icons/ai';
 import { format } from 'date-fns'
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-// import TimePicker from 'react-time-picker-input'
-// import "react-time-picker-input/dist/components/TimeInput.css"
+import defaultCameraImg from '../../assets/camera.png'
+
+
+
+
 import { UseContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 const CreateEvent = () => {
+
     const details = React.useContext(UseContext)
-    const {setEventDetails}=details ||{}
+    const { setEventDetails } = details || {}
     const [open, setOpen] = useState(false)
-    const navigate=useNavigate()
+    const [image, setImage] = useState(defaultCameraImg)
+    const navigate = useNavigate()
+    const [time, setTime] = useState('16:00:00')
     const [eventName, setEventName] = useState('')
     const [host, setHost] = useState('')
     const [location, setLocation] = useState('')
@@ -23,33 +30,38 @@ const CreateEvent = () => {
             key: "selection",
         }
     ])
-    const timeRef=useRef(null)
+ 
     // formating date 
     const startDate = format(date[0].startDate, 'PP').split(',')[0].split(' ').reverse()
     const endDate = format(date[0].endDate, 'PP').split(',')[0].split(' ').reverse()
-    useEffect(()=>{
-        console.log(timeRef.current.value)
-    },[])
+    
 
+    const onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
 
     const handleForm = (e) => {
         e.preventDefault()
-       
+
         setEventDetails({
             eventName,
             host,
             location,
             startDate,
-            endDate
+            endDate,
+            image
         })
 
         navigate('/event')
     }
-
+    console.log(image)
+   
     return (
-        <div className='bg-[#F6F2FF] min-h-screen pb-20'>
-            <div className='md:max-w-[745px] w-full mx-auto'>
-                <h2 className='text-center md:text-[50px] text-[28px] py-20 font-bold text-[#240D57]'>Schedule a event</h2>
+        <div className='bg-[#F6F2FF]  pb-20'>
+            <div className=' w-full mx-auto'>
+                <h2 className='text-center md:text-[50px] text-[28px] py-20 font-bold text-[#240D57]'>Create your event</h2>
                 <div>
                     <div className='flex justify-center '>
                         <div
@@ -85,57 +97,102 @@ const CreateEvent = () => {
                                     </span>
                                 }
                             </div>
-                                <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative '>
-                                    <input className='bg-transparent font-bold outline-none border-0' ref={timeRef} type="time"  max="24:00"/>
-                                </div>
-                        </div>
-                      
-                    </div>
-                    <div>
-                        <div className='md:px-20 px-4'>
+                            <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative '>
+                                <input
+                                    value={time}
+                                    placeholder='plecsf'
+                                    className='bg-transparent font-bold cursor-pointer  outline-none border-0`'
+                                 
+                                    type="time"
+                                    max="24:00"
+                                    onChange={e=>setTime(e.target.value)}
+                                    />
 
-                            <div className="card px-10 flex-shrink-0 mt-20 w-full shadow-2xl bg-base-100">
-                                <p className='text-center mt-7 text-2xl font-bold text-[#240D57]'>Please Enter Your Event Details</p>
-                                <form 
-                                onSubmit={handleForm}
-                                >
-                                    <div className="card-body">
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Event Name</span>
-                                            </label>
-                                            <input
-                                                onChange={(e) => setEventName(e.target.value)}
-                                                required type="text" placeholder="Event name" className="input input-bordered" />
-                                        </div>
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Host Name</span>
-                                            </label>
-                                            <input
-                                                onChange={(e) => setHost(e.target.value)}
-                                                required type="text" placeholder="Host name" className="input input-bordered" />
-
-                                        </div>
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Location</span>
-                                            </label>
-                                            <input
-                                                onChange={(e) => setLocation(e.target.value)}
-                                                required type="text" placeholder="Location" className="input input-bordered" />
-
-                                        </div>
-                                        
-                                        <div className="form-control mt-6">
-                                            <button className="btn bg-[#8456EC] text-white hover:bg-[#8456EC]">Next <span>
-                                                <BiRightArrowAlt className='text-[26px]' />
-                                            </span></button>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
+
+                    </div>
+                    <div>
+
+
+
+
+                        <div className="hero min-h-screen ">
+                            <div className="hero-content items-center justify-evenly w-full flex-col lg:flex-row-reverse">
+                                <div className='md:w-[40%] w-full  h-[400px] mt-10 md:mt-0'>
+                                    <div style={{
+                                        backgroundImage: `url(${image ? image : defaultCameraImg})`,
+                                        width: '100%',
+                                        height: '466px',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'center',
+                                        objectFit:'cover'
+                                    }}
+                                        className={`flex justify-center items-center`}>
+                                        <label
+
+                                            for="file">
+                                            <div >
+                                                <p>
+                                                    <AiFillCamera
+                                                        className='text-5xl cursor-pointer text-center mx-auto text-white'
+                                                    />
+                                                </p>
+                                                <p className='cursor-pointer font-bold text-white'>Choose a Photo</p>
+                                            </div>
+                                        </label>
+                                        <input
+                                            onChange={onImageChange}
+                                            className='hidden'
+                                            type="file"
+                                            id='file'
+                                        />
+                                    </div>
+                                </div>
+                                <div className="card  w-full md:min-w-[40%] lg:w-[40%] flex-shrink-0 mt-20 shadow-2xl bg-base-100">
+                                    <p className='text-center mt-7 text-2xl font-bold text-[#240D57]'>Please Enter Your Event Details</p>
+                                    <form
+                                        onSubmit={handleForm}
+                                    >
+                                        <div className="card-body">
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Event Name</span>
+                                                </label>
+                                                <input
+                                                    onChange={(e) => setEventName(e.target.value)}
+                                                    required type="text" placeholder="Event name" className="input input-bordered" />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Host Name</span>
+                                                </label>
+                                                <input
+                                                    onChange={(e) => setHost(e.target.value)}
+                                                    required type="text" placeholder="Host name" className="input input-bordered" />
+
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Location</span>
+                                                </label>
+                                                <input
+                                                    onChange={(e) => setLocation(e.target.value)}
+                                                    required type="text" placeholder="Location" className="input input-bordered" />
+
+                                            </div>
+
+                                            <div className="form-control mt-6">
+                                                <button className="btn bg-[#8456EC] text-white hover:bg-[#8456EC]">Next <span>
+                                                    <BiRightArrowAlt className='text-[26px]' />
+                                                </span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
