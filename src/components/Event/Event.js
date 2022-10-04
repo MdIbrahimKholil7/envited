@@ -43,7 +43,9 @@ const Event = () => {
                         className='px-5 w-full'
                     >
                         <h1 className="text-[28px] md:text-[48px]    font-bold">{eventDetails?.eventName}</h1>
-                        <p className='py-4 font-bold text-[#828282]'>{eventDetails?.host}</p>
+                        <p className='py-4 font-[600] text-[18px] text-[#828282]'>Hosted by <span
+                        className='text-[#828282] font-bold'
+                        >{eventDetails?.host}</span></p>
                         <div className='w-full '>
                             <div className='flex justify-between items-center w-full'>
                                 <div
