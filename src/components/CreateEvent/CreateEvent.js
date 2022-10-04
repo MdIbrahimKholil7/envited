@@ -20,6 +20,7 @@ const CreateEvent = () => {
     const [image, setImage] = useState(defaultCameraImg)
     const navigate = useNavigate()
     const [time, setTime] = useState('16:00:00')
+    const [endTime, setEndTime] = useState('20:00:00')
     const [eventName, setEventName] = useState('')
     const [host, setHost] = useState('')
     const [location, setLocation] = useState('')
@@ -30,11 +31,44 @@ const CreateEvent = () => {
             key: "selection",
         }
     ])
- 
+   
+    let times
+    let endTimes
+
+        function tConv24(time24) {
+            let ts = time24;
+            console.log(time24)
+            let H = +ts?.substr(0, 2);
+            let h = (H % 12) || 12;
+            h = (h < 10)?("0"+h):h;  // leading 0 at the left for 1 digit hours
+            let ampm = H < 12 ? " AM" : " PM";
+            ts = h + ts.substr(2, 3) + ampm;
+
+          return ts;
+          };
+        
+        function endTimeConv24(time24) {
+            let ts = time24;
+            console.log(time24)
+            let H = +ts?.substr(0, 2);
+            let h = (H % 12) || 12;
+            h = (h < 10)?("0"+h):h;  // leading 0 at the left for 1 digit hours
+            let ampm = H < 12 ? " AM" : " PM";
+            ts = h + ts.substr(2, 3) + ampm;
+          
+           return ts;
+          };
+          endTimeConv24(endTime)
+  
+
+    // console.log(times,endTimes)
+
+
+
     // formating date 
     const startDate = format(date[0].startDate, 'PP').split(',')[0].split(' ').reverse()
     const endDate = format(date[0].endDate, 'PP').split(',')[0].split(' ').reverse()
-    
+
 
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -51,21 +85,26 @@ const CreateEvent = () => {
             location,
             startDate,
             endDate,
-            image
+            image,
+            times:tConv24(time),
+            startTime:time,
+            endTime:endTime,
+            endTimes:  endTimeConv24(endTime)
+
         })
 
         navigate('/event')
     }
-    console.log(image)
-   
+    
+
     return (
         <div className='bg-[#F6F2FF]  pb-20'>
             <div className=' w-full mx-auto'>
                 <h2 className='text-center md:text-[50px] text-[28px] py-20 font-bold text-[#240D57]'>Create your event</h2>
                 <div>
-                    <div className='flex justify-center '>
+                    <div className='flex-col md:flex-row items-center justify-center '>
                         <div
-                            className='flex items-center gap-5'
+                            className='flex items-center gap-5 justify-center flex-col md:flex-row'
                         >
                             <BiCalendar
                                 className='text-[26px] text-[#8456EC]'
@@ -97,16 +136,27 @@ const CreateEvent = () => {
                                     </span>
                                 }
                             </div>
-                            <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative '>
+                            <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative flex gap-2'>
+                                <span>Start Time</span>
                                 <input
                                     value={time}
-                                    placeholder='plecsf'
                                     className='bg-transparent font-bold cursor-pointer  outline-none border-0`'
-                                 
                                     type="time"
                                     max="24:00"
-                                    onChange={e=>setTime(e.target.value)}
-                                    />
+                                    onChange={e => setTime(e.target.value)}
+                                />
+
+                            </div>
+                            <div className='border-2 border-solid cursor-pointer  border-[#8456EC] rounded-md py-[10px] px-[21px] relative flex gap-2'>
+                                <span>End Time</span>
+                                <input
+                                    value={endTime}
+                                  
+                                    className='bg-transparent font-bold cursor-pointer  outline-none border-0`'
+                                    type="time"
+                                    max="24:00"
+                                    onChange={e => setEndTime(e.target.value)}
+                                />
 
                             </div>
                         </div>
@@ -126,7 +176,7 @@ const CreateEvent = () => {
                                         height: '466px',
                                         backgroundRepeat: 'no-repeat',
                                         backgroundPosition: 'center',
-                                        objectFit:'cover'
+                                        objectFit: 'cover'
                                     }}
                                         className={`flex justify-center items-center`}>
                                         <label

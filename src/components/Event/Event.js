@@ -14,7 +14,8 @@ import Modal from '../Modal/Modal';
 const Event = () => {
     const details = React.useContext(UseContext)
     const { eventDetails, setEventDetails } = details || {}
-    const { eventName, host,location,image} = eventDetails || {}
+    const { eventName, host,location,image,times,endTimes,startTime,endTime} = eventDetails || {}
+    console.log(eventDetails)
     const [modal, setModal] = useState(null)
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
@@ -41,7 +42,8 @@ const Event = () => {
                 <div className="hero-content w-full px-0 md:px-20 py-0 justify-between items-start flex-col lg:flex-row-reverse">
                     <img src={
                         image?image:eventImg
-                    } className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1  mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
+                    } 
+                    className="sm:max-w-[500px] w-full sm:mx-auto lg:mx-1 mt-1 mb-10 lg:mb-0 rounded-lg shadow-2xl" alt='eventImg' />
                     <div
                         className='px-5 w-full'
                     >
@@ -75,28 +77,28 @@ const Event = () => {
                                                 className='text-[#240D57] text-[18px]'
                                             >
                                                 {
-                                                    update && `${startDate} 6PM`
+                                                    update && `${startDate}  ${times}`
                                                 }
                                             </p>}
                                             {update && <p
                                                 className='text-[#4F4F4F] text-[18px]'
                                             >
                                                 {
-                                                    update && `${endDate} 1PM`
+                                                    update && `${endDate} ${endTimes}`
                                                 }
                                             </p>}
                                             {!update && <p
                                                 className='text-[#240D57] text-[18px]'
                                             >
                                                 {
-                                                    `${eventDetails?.startDate} 6PM`
+                                                    `${startDate} ${times}`
                                                 }
                                             </p>}
                                             {!update && <p
                                                 className='text-[#4F4F4F] text-[18px]'
                                             >
                                                 {
-                                                    `${eventDetails?.endDate} 1PM`
+                                                    `${endDate}  ${endTimes}`
                                                 }
                                             </p>}
                                         </p>
@@ -154,15 +156,7 @@ const Event = () => {
                             </div>
                         </div>
                         <div className='text-center'>
-                            {/*    <button
-
-                                className='flex gap-1 items-center mx-auto mt-10 btn font-bold'>
-                                <FiEdit2
-                                    className='font-bold '
-                                />
-                                Edit
-                            </button> */}
-
+                          
                             <label
                                 onClick={()=>setModal(true)}
                                 htmlFor="my-modal-6"
